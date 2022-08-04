@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Task
+from .forms import TaskForm
 
 
 def index(request):
@@ -13,4 +14,14 @@ def about(request):
 
 
 def create(request):
-    return render(request, 'create.html')
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        context = form.save()
+        return redirect('index', context)
+    else:
+        form = TaskForm
+        context = {
+            'form': form,
+        }
+        return render(request, 'create.html', context)
+
