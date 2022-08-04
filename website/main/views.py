@@ -4,13 +4,13 @@ from .models import Task
 
 
 def index(request):
-    task = Task.objects.all()
-    return render(request, 'index.html', {'title': 'Главная страница', 'tasks': task})
+    tasks = Task.objects.order_by('-id')
+    return render(request, 'index.html', {'title': 'Главная страница сайта', 'tasks': tasks})
 
 
 def about(request):
     return render(request, 'about.html')
 
 
-def my_template(request):
-    return render(request, 'mytemplate.html')
+def create(request):
+    return render(request, 'create.html')
