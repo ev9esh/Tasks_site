@@ -16,8 +16,9 @@ def about(request):
 def create(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
-        context = form.save()
-        return redirect('index', context)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
     else:
         form = TaskForm
         context = {
